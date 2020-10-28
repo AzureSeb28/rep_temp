@@ -1,0 +1,20 @@
+{
+	"name": "SapBw1Desarrollo",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "SAP BW Desarrollo",
+		"annotations": [],
+		"type": "SapBw",
+		"typeProperties": {
+			"server": "192.168.9.68",
+			"systemNumber": "00",
+			"clientId": "300",
+			"userName": "scasanova",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJmY2I1NDFiNS04NDM5LTQzN2QtYjVlOC1hZmY1YWZmY2EwNWEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime3",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
