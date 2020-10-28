@@ -1,0 +1,20 @@
+{
+	"name": "SapBwPRD",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "SAP BW PRD",
+		"annotations": [],
+		"type": "SapBw",
+		"typeProperties": {
+			"server": "192.168.9.85",
+			"systemNumber": "00",
+			"clientId": "300",
+			"userName": "fmarin",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJkM2ViYTVmNi05YzEyLTRhMmYtYWE4Ni1iM2E1OTJlODc1NTQiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime3",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
