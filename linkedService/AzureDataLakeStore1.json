@@ -1,0 +1,14 @@
+{
+	"name": "AzureDataLakeStore1",
+	"properties": {
+		"description": "AzureDataLakeStore1 Descripción",
+		"annotations": [],
+		"type": "AzureDataLakeStore",
+		"typeProperties": {
+			"dataLakeStoreUri": "https://datalakestoragegen2.azuredatalakestore.net/webhdfs/v1",
+			"tenant": "b58d9729-3020-4953-b56e-1a6a85a7ab15",
+			"subscriptionId": "5e8ce0c2-6127-4ef8-88e3-01ff2fc406bb",
+			"resourceGroupName": "AnalyticsRG"
+		}
+	}
+}
