@@ -1,0 +1,22 @@
+{
+	"name": "SapBwCube1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SapBwPRD",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"dataset1": {
+				"type": "string",
+				"defaultValue": "2"
+			},
+			"dataset2": {
+				"type": "int",
+				"defaultValue": 2
+			}
+		},
+		"annotations": [],
+		"type": "SapBwCube",
+		"schema": []
+	}
+}
