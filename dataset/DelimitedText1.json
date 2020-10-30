@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "sapbw",
+				"fileName": "sapbw.csv",
 				"fileSystem": "container11"
 			},
 			"columnDelimiter": ",",
