@@ -1,0 +1,590 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "DataFactoryy1"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		},
+		"SapBw1Desarrollo_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SapBw1Desarrollo'"
+		},
+		"SapBwPRD_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SapBwPRD'"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://datalak1.dfs.core.windows.net"
+		},
+		"AzureDataLakeStore1_properties_typeProperties_dataLakeStoreUri": {
+			"type": "string",
+			"defaultValue": "https://datalakestoragegen2.azuredatalakestore.net/webhdfs/v1"
+		},
+		"AzureDataLakeStore1_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "b58d9729-3020-4953-b56e-1a6a85a7ab15"
+		},
+		"AzureDataLakeStore1_properties_typeProperties_subscriptionId": {
+			"type": "string",
+			"defaultValue": "5e8ce0c2-6127-4ef8-88e3-01ff2fc406bb"
+		},
+		"AzureDataLakeStore1_properties_typeProperties_resourceGroupName": {
+			"type": "string",
+			"defaultValue": "AnalyticsRG"
+		},
+		"SapBw1Desarrollo_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "192.168.9.68"
+		},
+		"SapBw1Desarrollo_properties_typeProperties_systemNumber": {
+			"type": "string",
+			"defaultValue": "00"
+		},
+		"SapBw1Desarrollo_properties_typeProperties_clientId": {
+			"type": "string",
+			"defaultValue": "300"
+		},
+		"SapBw1Desarrollo_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "scasanova"
+		},
+		"SapBwPRD_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "192.168.9.85"
+		},
+		"SapBwPRD_properties_typeProperties_systemNumber": {
+			"type": "string",
+			"defaultValue": "00"
+		},
+		"SapBwPRD_properties_typeProperties_clientId": {
+			"type": "string",
+			"defaultValue": "300"
+		},
+		"SapBwPRD_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "fmarin"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStore1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "AzureDataLakeStore1 Descripción",
+				"annotations": [],
+				"type": "AzureDataLakeStore",
+				"typeProperties": {
+					"dataLakeStoreUri": "[parameters('AzureDataLakeStore1_properties_typeProperties_dataLakeStoreUri')]",
+					"tenant": "[parameters('AzureDataLakeStore1_properties_typeProperties_tenant')]",
+					"subscriptionId": "[parameters('AzureDataLakeStore1_properties_typeProperties_subscriptionId')]",
+					"resourceGroupName": "[parameters('AzureDataLakeStore1_properties_typeProperties_resourceGroupName')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Descripcion  AzureSqlDatabase1 linked",
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/integrationRuntime3')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"description": "Runtime3",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "DB1",
+					"table": "TABLE1"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "sapbw.csv",
+						"fileSystem": "container11"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "[[0BILL_TYPE].[LEVEL01].[MEMBER_CAPTION]",
+						"type": "String"
+					},
+					{
+						"name": "[[0COMP_CODE].[LEVEL01].[MEMBER_CAPTION]",
+						"type": "String"
+					},
+					{
+						"name": "[[0DOC_NUMBER].[LEVEL01].[MEMBER_CAPTION]",
+						"type": "String"
+					},
+					{
+						"name": "[[0CALDAY].[LEVEL01].[MEMBER_CAPTION]",
+						"type": "String"
+					},
+					{
+						"name": "[[0CALMONTH2].[LEVEL01].[MEMBER_CAPTION]",
+						"type": "String"
+					},
+					{
+						"name": "[[Measures].[624IRRSR9LDWI932059BH0PM2]",
+						"type": "String"
+					},
+					{
+						"name": "[[Measures].[624IRRSR9LDWI932059BH246I]",
+						"type": "String"
+					},
+					{
+						"name": "[[Measures].[624IRRSR9LDWI932059BH2GTM]",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SapBw1Desarrollo')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "SAP BW Desarrollo",
+				"annotations": [],
+				"type": "SapBw",
+				"typeProperties": {
+					"server": "[parameters('SapBw1Desarrollo_properties_typeProperties_server')]",
+					"systemNumber": "[parameters('SapBw1Desarrollo_properties_typeProperties_systemNumber')]",
+					"clientId": "[parameters('SapBw1Desarrollo_properties_typeProperties_clientId')]",
+					"userName": "[parameters('SapBw1Desarrollo_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('SapBw1Desarrollo_password')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "integrationRuntime3",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime3')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SapBwPRD')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "SAP BW PRD",
+				"annotations": [],
+				"type": "SapBw",
+				"typeProperties": {
+					"server": "[parameters('SapBwPRD_properties_typeProperties_server')]",
+					"systemNumber": "[parameters('SapBwPRD_properties_typeProperties_systemNumber')]",
+					"clientId": "[parameters('SapBwPRD_properties_typeProperties_clientId')]",
+					"userName": "[parameters('SapBwPRD_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('SapBwPRD_password')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "integrationRuntime3",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime3')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SapBwCube1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SapBwPRD",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SapBwCube",
+				"schema": [],
+				"typeProperties": {},
+				"typePropertites": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SapBwPRD')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SapBwSource",
+								"query": "SELECT\n\t{ [Measures].[624IRRSR9LDWI932059BH0PM2],\n\t[Measures].[624IRRSR9LDWI932059BH246I],\n\t[Measures].[624IRRSR9LDWI932059BH2GTM] } ON COLUMNS,\n\tNON EMPTY\n\t{ [0BILL_TYPE].[LEVEL01].MEMBERS *\n\t[0COMP_CODE].[LEVEL01].MEMBERS *\n        [0DOC_NUMBER].[LEVEL01].MEMBERS *\n        [0CALDAY].[LEVEL01].MEMBERS *\n\t[0CALMONTH2].[LEVEL01].MEMBERS } ON ROWS\nFROM ZASSDM02/ZASSD_EXPORTACIONES_02_PBI\nSAP VARIABLES [ZYCAP0] INCLUDING '2020' [ZITMES] INCLUDING '10'"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SapBwCube1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DelimitedText1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "Copy data2",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copy data1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"tableOption": "autoCreate"
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "[[0BILL_TYPE].[LEVEL01].[MEMBER_CAPTION]",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "[[0BILL_TYPE].[LEVEL01].[MEMBER_CAPTION]",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "[[0COMP_CODE].[LEVEL01].[MEMBER_CAPTION]",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "[[0COMP_CODE].[LEVEL01].[MEMBER_CAPTION]",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "[[0DOC_NUMBER].[LEVEL01].[MEMBER_CAPTION]",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "[[0DOC_NUMBER].[LEVEL01].[MEMBER_CAPTION]",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "[[0CALDAY].[LEVEL01].[MEMBER_CAPTION]",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "[[0CALDAY].[LEVEL01].[MEMBER_CAPTION]",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "[[0CALMONTH2].[LEVEL01].[MEMBER_CAPTION]",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "[[0CALMONTH2].[LEVEL01].[MEMBER_CAPTION]",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "[[Measures].[624IRRSR9LDWI932059BH0PM2]",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "[[Measures].[624IRRSR9LDWI932059BH0PM2]",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "[[Measures].[624IRRSR9LDWI932059BH246I]",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "[[Measures].[624IRRSR9LDWI932059BH246I]",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "[[Measures].[624IRRSR9LDWI932059BH2GTM]",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "[[Measures].[624IRRSR9LDWI932059BH2GTM]",
+											"type": "String",
+											"physicalType": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DelimitedText1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "AzureSqlTable1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SapBwCube1')]",
+				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]",
+				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1_copy1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SapBwSource",
+								"query": "SELECT\n\t{ [Measures].[624IRRSR9LDWI932059BH0PM2],\n\t[Measures].[624IRRSR9LDWI932059BH246I],\n\t[Measures].[624IRRSR9LDWI932059BH2GTM] } ON COLUMNS,\n\tNON EMPTY\n\t{ [0BILL_TYPE].[LEVEL01].MEMBERS *\n\t[0COMP_CODE].[LEVEL01].MEMBERS *\n        [0DOC_NUMBER].[LEVEL01].MEMBERS *\n        [0CALDAY].[LEVEL01].MEMBERS *\n\t[0CALMONTH2].[LEVEL01].MEMBERS } ON ROWS\nFROM ZASSDM02/ZASSD_EXPORTACIONES_02_PBI\nSAP VARIABLES [ZYCAP0] INCLUDING '2020' [ZITMES] INCLUDING '10'"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SapBwCube1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DelimitedText1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SapBwCube1')]",
+				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]"
+			]
+		}
+	]
+}

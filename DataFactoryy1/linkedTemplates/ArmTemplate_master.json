@@ -1,0 +1,161 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "DataFactoryy1"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		},
+		"SapBw1Desarrollo_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SapBw1Desarrollo'"
+		},
+		"SapBwPRD_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SapBwPRD'"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://datalak1.dfs.core.windows.net"
+		},
+		"AzureDataLakeStore1_properties_typeProperties_dataLakeStoreUri": {
+			"type": "string",
+			"defaultValue": "https://datalakestoragegen2.azuredatalakestore.net/webhdfs/v1"
+		},
+		"AzureDataLakeStore1_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "b58d9729-3020-4953-b56e-1a6a85a7ab15"
+		},
+		"AzureDataLakeStore1_properties_typeProperties_subscriptionId": {
+			"type": "string",
+			"defaultValue": "5e8ce0c2-6127-4ef8-88e3-01ff2fc406bb"
+		},
+		"AzureDataLakeStore1_properties_typeProperties_resourceGroupName": {
+			"type": "string",
+			"defaultValue": "AnalyticsRG"
+		},
+		"SapBw1Desarrollo_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "192.168.9.68"
+		},
+		"SapBw1Desarrollo_properties_typeProperties_systemNumber": {
+			"type": "string",
+			"defaultValue": "00"
+		},
+		"SapBw1Desarrollo_properties_typeProperties_clientId": {
+			"type": "string",
+			"defaultValue": "300"
+		},
+		"SapBw1Desarrollo_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "scasanova"
+		},
+		"SapBwPRD_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "192.168.9.85"
+		},
+		"SapBwPRD_properties_typeProperties_systemNumber": {
+			"type": "string",
+			"defaultValue": "00"
+		},
+		"SapBwPRD_properties_typeProperties_clientId": {
+			"type": "string",
+			"defaultValue": "300"
+		},
+		"SapBwPRD_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "fmarin"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "DataFactoryy1_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureDataLakeStorage1_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					},
+					"AzureSqlDatabase1_connectionString": {
+						"value": "[parameters('AzureSqlDatabase1_connectionString')]"
+					},
+					"SapBw1Desarrollo_password": {
+						"value": "[parameters('SapBw1Desarrollo_password')]"
+					},
+					"SapBwPRD_password": {
+						"value": "[parameters('SapBwPRD_password')]"
+					},
+					"AzureDataLakeStorage1_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
+					},
+					"AzureDataLakeStore1_properties_typeProperties_dataLakeStoreUri": {
+						"value": "[parameters('AzureDataLakeStore1_properties_typeProperties_dataLakeStoreUri')]"
+					},
+					"AzureDataLakeStore1_properties_typeProperties_tenant": {
+						"value": "[parameters('AzureDataLakeStore1_properties_typeProperties_tenant')]"
+					},
+					"AzureDataLakeStore1_properties_typeProperties_subscriptionId": {
+						"value": "[parameters('AzureDataLakeStore1_properties_typeProperties_subscriptionId')]"
+					},
+					"AzureDataLakeStore1_properties_typeProperties_resourceGroupName": {
+						"value": "[parameters('AzureDataLakeStore1_properties_typeProperties_resourceGroupName')]"
+					},
+					"SapBw1Desarrollo_properties_typeProperties_server": {
+						"value": "[parameters('SapBw1Desarrollo_properties_typeProperties_server')]"
+					},
+					"SapBw1Desarrollo_properties_typeProperties_systemNumber": {
+						"value": "[parameters('SapBw1Desarrollo_properties_typeProperties_systemNumber')]"
+					},
+					"SapBw1Desarrollo_properties_typeProperties_clientId": {
+						"value": "[parameters('SapBw1Desarrollo_properties_typeProperties_clientId')]"
+					},
+					"SapBw1Desarrollo_properties_typeProperties_userName": {
+						"value": "[parameters('SapBw1Desarrollo_properties_typeProperties_userName')]"
+					},
+					"SapBwPRD_properties_typeProperties_server": {
+						"value": "[parameters('SapBwPRD_properties_typeProperties_server')]"
+					},
+					"SapBwPRD_properties_typeProperties_systemNumber": {
+						"value": "[parameters('SapBwPRD_properties_typeProperties_systemNumber')]"
+					},
+					"SapBwPRD_properties_typeProperties_clientId": {
+						"value": "[parameters('SapBwPRD_properties_typeProperties_clientId')]"
+					},
+					"SapBwPRD_properties_typeProperties_userName": {
+						"value": "[parameters('SapBwPRD_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}

@@ -1,0 +1,66 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "DataFactoryy1"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
+		"SapBw1Desarrollo_password": {
+			"value": ""
+		},
+		"SapBwPRD_password": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://datalak1.dfs.core.windows.net"
+		},
+		"AzureDataLakeStore1_properties_typeProperties_dataLakeStoreUri": {
+			"value": "https://datalakestoragegen2.azuredatalakestore.net/webhdfs/v1"
+		},
+		"AzureDataLakeStore1_properties_typeProperties_tenant": {
+			"value": "b58d9729-3020-4953-b56e-1a6a85a7ab15"
+		},
+		"AzureDataLakeStore1_properties_typeProperties_subscriptionId": {
+			"value": "5e8ce0c2-6127-4ef8-88e3-01ff2fc406bb"
+		},
+		"AzureDataLakeStore1_properties_typeProperties_resourceGroupName": {
+			"value": "AnalyticsRG"
+		},
+		"SapBw1Desarrollo_properties_typeProperties_server": {
+			"value": "192.168.9.68"
+		},
+		"SapBw1Desarrollo_properties_typeProperties_systemNumber": {
+			"value": "00"
+		},
+		"SapBw1Desarrollo_properties_typeProperties_clientId": {
+			"value": "300"
+		},
+		"SapBw1Desarrollo_properties_typeProperties_userName": {
+			"value": "scasanova"
+		},
+		"SapBwPRD_properties_typeProperties_server": {
+			"value": "192.168.9.85"
+		},
+		"SapBwPRD_properties_typeProperties_systemNumber": {
+			"value": "00"
+		},
+		"SapBwPRD_properties_typeProperties_clientId": {
+			"value": "300"
+		},
+		"SapBwPRD_properties_typeProperties_userName": {
+			"value": "fmarin"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
