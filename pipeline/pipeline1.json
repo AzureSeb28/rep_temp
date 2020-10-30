@@ -77,7 +77,7 @@
 						"type": "DelimitedTextSource",
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
-							"recursive": true
+							"fileListPath": "container11/sapbw"
 						},
 						"formatSettings": {
 							"type": "DelimitedTextReadSettings"
@@ -154,7 +154,7 @@
 							{
 								"source": {
 									"name": "[Measures].[624IRRSR9LDWI932059BH0PM2]",
-									"type": "Decimal",
+									"type": "String",
 									"physicalType": "String"
 								},
 								"sink": {
@@ -166,7 +166,7 @@
 							{
 								"source": {
 									"name": "[Measures].[624IRRSR9LDWI932059BH246I]",
-									"type": "Decimal",
+									"type": "String",
 									"physicalType": "String"
 								},
 								"sink": {
@@ -178,7 +178,7 @@
 							{
 								"source": {
 									"name": "[Measures].[624IRRSR9LDWI932059BH2GTM]",
-									"type": "Decimal",
+									"type": "String",
 									"physicalType": "String"
 								},
 								"sink": {
