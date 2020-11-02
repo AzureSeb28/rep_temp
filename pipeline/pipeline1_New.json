@@ -1,0 +1,217 @@
+{
+	"name": "pipeline1_New",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapBwSource",
+						"query": "SELECT\n\t{ [Measures].[624IRRSR9LDWI932059BH0PM2],\n\t[Measures].[624IRRSR9LDWI932059BH246I],\n\t[Measures].[624IRRSR9LDWI932059BH2GTM] } ON COLUMNS,\n\tNON EMPTY\n\t{ [0BILL_TYPE].[LEVEL01].MEMBERS *\n\t[0COMP_CODE].[LEVEL01].MEMBERS *\n        [0DOC_NUMBER].[LEVEL01].MEMBERS *\n        [0CALDAY].[LEVEL01].MEMBERS *\n\t[0CALMONTH2].[LEVEL01].MEMBERS } ON ROWS\nFROM ZASSDM02/ZASSD_EXPORTACIONES_02_PBI\nSAP VARIABLES [ZYCAP0] INCLUDING '2020' [ZITMES] INCLUDING '10'"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings",
+							"copyBehavior": "MergeFiles"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SapBwCube1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DelimitedText2",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy data2",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Copy data1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "[0BILL_TYPE].[LEVEL01].[MEMBER_CAPTION]",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "BILL_TYPE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "[0COMP_CODE].[LEVEL01].[MEMBER_CAPTION]",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "COMP_CODE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "[0DOC_NUMBER].[LEVEL01].[MEMBER_CAPTION]",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DOC_NUMBER",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "[0CALDAY].[LEVEL01].[MEMBER_CAPTION]",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "CALDAY",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "[0CALMONTH2].[LEVEL01].[MEMBER_CAPTION]",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "CALMONTH2",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "[Measures].[624IRRSR9LDWI932059BH0PM2]",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "valor1",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "[Measures].[624IRRSR9LDWI932059BH246I]",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "valor2",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "[Measures].[624IRRSR9LDWI932059BH2GTM]",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "valor3",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"table_name": "ARCHIVOLOAD"
+						}
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}

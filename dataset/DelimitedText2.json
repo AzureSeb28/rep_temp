@@ -1,0 +1,55 @@
+{
+	"name": "DelimitedText2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ArchivoCSV",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "container11"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "[0BILL_TYPE].[LEVEL01].[MEMBER_CAPTION]",
+				"type": "String"
+			},
+			{
+				"name": "[0COMP_CODE].[LEVEL01].[MEMBER_CAPTION]",
+				"type": "String"
+			},
+			{
+				"name": "[0DOC_NUMBER].[LEVEL01].[MEMBER_CAPTION]",
+				"type": "String"
+			},
+			{
+				"name": "[0CALDAY].[LEVEL01].[MEMBER_CAPTION]",
+				"type": "String"
+			},
+			{
+				"name": "[0CALMONTH2].[LEVEL01].[MEMBER_CAPTION]",
+				"type": "String"
+			},
+			{
+				"name": "[Measures].[624IRRSR9LDWI932059BH0PM2]",
+				"type": "String"
+			},
+			{
+				"name": "[Measures].[624IRRSR9LDWI932059BH246I]",
+				"type": "String"
+			},
+			{
+				"name": "[Measures].[624IRRSR9LDWI932059BH2GTM]",
+				"type": "String"
+			}
+		]
+	}
+}
