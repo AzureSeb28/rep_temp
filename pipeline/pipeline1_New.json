@@ -296,7 +296,7 @@
 						"referenceName": "AzureSqlTable1",
 						"type": "DatasetReference",
 						"parameters": {
-							"table_name": "ARCHIVOLOAD"
+							"table_name": "ARCHIVOLOAD2"
 						}
 					}
 				]
