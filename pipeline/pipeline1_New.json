@@ -243,7 +243,7 @@
 							{
 								"source": {
 									"name": "[Measures].[624IRRSR9LDWI932059BH0PM2]",
-									"type": "String",
+									"type": "Decimal",
 									"physicalType": "String"
 								},
 								"sink": {
@@ -257,7 +257,7 @@
 							{
 								"source": {
 									"name": "[Measures].[624IRRSR9LDWI932059BH246I]",
-									"type": "String",
+									"type": "Decimal",
 									"physicalType": "String"
 								},
 								"sink": {
@@ -271,7 +271,7 @@
 							{
 								"source": {
 									"name": "[Measures].[624IRRSR9LDWI932059BH2GTM]",
-									"type": "String",
+									"type": "Decimal",
 									"physicalType": "String"
 								},
 								"sink": {
