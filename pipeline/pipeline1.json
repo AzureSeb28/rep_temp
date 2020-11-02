@@ -84,7 +84,9 @@
 						}
 					},
 					"sink": {
-						"type": "AzureSqlSink"
+						"type": "AzureSqlSink",
+						"preCopyScript": "truncate table ARCHIVOLOAD",
+						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
 					"translator": {
