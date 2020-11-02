@@ -33,6 +33,96 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "[0BILL_TYPE].[LEVEL01].[MEMBER_CAPTION]",
+									"type": "String"
+								},
+								"sink": {
+									"name": "[0BILL_TYPE].[LEVEL01].[MEMBER_CAPTION]",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "[0COMP_CODE].[LEVEL01].[MEMBER_CAPTION]",
+									"type": "String"
+								},
+								"sink": {
+									"name": "[0COMP_CODE].[LEVEL01].[MEMBER_CAPTION]",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "[0DOC_NUMBER].[LEVEL01].[MEMBER_CAPTION]",
+									"type": "String"
+								},
+								"sink": {
+									"name": "[0DOC_NUMBER].[LEVEL01].[MEMBER_CAPTION]",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "[0CALDAY].[LEVEL01].[MEMBER_CAPTION]",
+									"type": "String"
+								},
+								"sink": {
+									"name": "[0CALDAY].[LEVEL01].[MEMBER_CAPTION]",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "[0CALMONTH2].[LEVEL01].[MEMBER_CAPTION]",
+									"type": "String"
+								},
+								"sink": {
+									"name": "[0CALMONTH2].[LEVEL01].[MEMBER_CAPTION]",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "[Measures].[624IRRSR9LDWI932059BH0PM2]",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "[Measures].[624IRRSR9LDWI932059BH0PM2]",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "[Measures].[624IRRSR9LDWI932059BH246I]",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "[Measures].[624IRRSR9LDWI932059BH246I]",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "[Measures].[624IRRSR9LDWI932059BH2GTM]",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "[Measures].[624IRRSR9LDWI932059BH2GTM]",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
