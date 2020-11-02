@@ -276,7 +276,8 @@
 									"type": "String",
 									"physicalType": "varchar"
 								}
-							}
+							},
+							null
 						],
 						"typeConversion": true,
 						"typeConversionSettings": {
