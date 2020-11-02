@@ -8,7 +8,7 @@
 		"parameters": {
 			"table_name": {
 				"type": "string",
-				"defaultValue": "ARCHIVOLOAD"
+				"defaultValue": "ARCHIVOLOAD2"
 			}
 		},
 		"annotations": [],
