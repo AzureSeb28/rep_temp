@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "salida.csv",
 				"container": "container11"
 			},
 			"columnDelimiter": ",",
