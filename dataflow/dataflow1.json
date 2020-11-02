@@ -1,0 +1,27 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText2",
+						"type": "DatasetReference"
+					},
+					"name": "ArchivoBW"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "SalidaDataFlow"
+				},
+				{
+					"name": "DerivedColumn2"
+				}
+			],
+			"script": "source(output(\n\t\t{[0BILL_TYPE].[LEVEL01].[MEMBER_CAPTION]} as string,\n\t\t{[0COMP_CODE].[LEVEL01].[MEMBER_CAPTION]} as string,\n\t\t{[0DOC_NUMBER].[LEVEL01].[MEMBER_CAPTION]} as string,\n\t\t{[0CALDAY].[LEVEL01].[MEMBER_CAPTION]} as string,\n\t\t{[0CALMONTH2].[LEVEL01].[MEMBER_CAPTION]} as string,\n\t\t{[Measures].[624IRRSR9LDWI932059BH0PM2]} as string,\n\t\t{[Measures].[624IRRSR9LDWI932059BH246I]} as string,\n\t\t{[Measures].[624IRRSR9LDWI932059BH2GTM]} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> ArchivoBW\nArchivoBW derive(Valor11 = toDecimal({[Measures].[624IRRSR9LDWI932059BH0PM2]}),\n\t\tValor22 = toDecimal({[Measures].[624IRRSR9LDWI932059BH246I]}),\n\t\tValor33 = toDecimal({[Measures].[624IRRSR9LDWI932059BH2GTM]})) ~> SalidaDataFlow\nSalidaDataFlow derive() ~> DerivedColumn2"
+		}
+	}
+}
