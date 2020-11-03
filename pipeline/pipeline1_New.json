@@ -16,8 +16,13 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "dataflow1",
-						"type": "DataFlowReference"
+						"referenceName": "dataflow1_copy1",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"sink1": {
+								"table_name": "ARCHIVOLOAD2"
+							}
+						}
 					},
 					"compute": {
 						"coreCount": 8,
