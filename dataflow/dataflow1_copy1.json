@@ -1,0 +1,32 @@
+{
+	"name": "dataflow1_copy1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText2",
+						"type": "DatasetReference"
+					},
+					"name": "ArchivoBW"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "SalidaDataFlow"
+				}
+			],
+			"script": "source(output(\n\t\t{[0BILL_TYPE].[LEVEL01].[MEMBER_CAPTION]} as string,\n\t\t{[0COMP_CODE].[LEVEL01].[MEMBER_CAPTION]} as string,\n\t\t{[0DOC_NUMBER].[LEVEL01].[MEMBER_CAPTION]} as string,\n\t\t{[0CALDAY].[LEVEL01].[MEMBER_CAPTION]} as string,\n\t\t{[0CALMONTH2].[LEVEL01].[MEMBER_CAPTION]} as string,\n\t\t{[Measures].[624IRRSR9LDWI932059BH0PM2]} as string,\n\t\t{[Measures].[624IRRSR9LDWI932059BH246I]} as string,\n\t\t{[Measures].[624IRRSR9LDWI932059BH2GTM]} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: true,\n\tignoreNoFilesFound: false,\n\tinferDriftedColumnTypes: true) ~> ArchivoBW\nArchivoBW derive(Valor11 = toDecimal({[Measures].[624IRRSR9LDWI932059BH0PM2]}),\n\t\tValor22 = toDecimal({[Measures].[624IRRSR9LDWI932059BH246I]}),\n\t\tValor33 = toDecimal({[Measures].[624IRRSR9LDWI932059BH2GTM]})) ~> SalidaDataFlow\nSalidaDataFlow sink(allowSchemaDrift: true,\n\tvalidateSchema: true,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\ttruncate:true,\n\tformat: 'table',\n\tmapColumn(\n\t\tBILL_TYPE = {[0BILL_TYPE].[LEVEL01].[MEMBER_CAPTION]},\n\t\tCOMP_CODE = {[0COMP_CODE].[LEVEL01].[MEMBER_CAPTION]},\n\t\tDOC_NUMBER = {[0DOC_NUMBER].[LEVEL01].[MEMBER_CAPTION]},\n\t\tCALDAY = {[0CALDAY].[LEVEL01].[MEMBER_CAPTION]},\n\t\tCALMONTH = {[0CALMONTH2].[LEVEL01].[MEMBER_CAPTION]},\n\t\tValor1 = Valor11,\n\t\tValor2 = Valor22,\n\t\tValor3 = Valor33\n\t),\n\tpartitionBy('hash', 1),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+		}
+	}
+}
