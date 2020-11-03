@@ -85,7 +85,7 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "truncate table ARCHIVOLOAD2",
+						"preCopyScript": "truncate table ARCHIVOLOAD3",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
@@ -162,8 +162,8 @@
 									"name": "valor1",
 									"type": "Decimal",
 									"physicalType": "decimal",
-									"scale": 2,
-									"precision": 10
+									"scale": 0,
+									"precision": 18
 								}
 							},
 							{
@@ -176,8 +176,8 @@
 									"name": "valor2",
 									"type": "Decimal",
 									"physicalType": "decimal",
-									"scale": 2,
-									"precision": 10
+									"scale": 0,
+									"precision": 18
 								}
 							},
 							{
@@ -190,8 +190,8 @@
 									"name": "valor3",
 									"type": "Decimal",
 									"physicalType": "decimal",
-									"scale": 2,
-									"precision": 10
+									"scale": 0,
+									"precision": 18
 								}
 							}
 						],
@@ -210,11 +210,8 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "AzureSqlTable1",
-						"type": "DatasetReference",
-						"parameters": {
-							"table_name": "ARCHIVOLOAD2"
-						}
+						"referenceName": "AzureSqlTable2",
+						"type": "DatasetReference"
 					}
 				]
 			}
